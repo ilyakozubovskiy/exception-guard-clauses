@@ -12,14 +12,14 @@ namespace ExceptionGuardClauses
                 return result;
             }
 
-            throw new Exception("c is not a hex char.");
+            throw new ArgumentException("c is not a hex char.", nameof(c));
         }
 
         public static char GetLastCharacter(string str)
         {
             if (string.IsNullOrEmpty(str))
             {
-                throw new ApplicationException($"{nameof(str)} is null.");
+                throw new ArgumentNullException(nameof(str), $"{nameof(str)} is null.");
             }
 
             return str[^1];
@@ -29,17 +29,17 @@ namespace ExceptionGuardClauses
         {
             if (string.IsNullOrEmpty(code))
             {
-                throw new Exception($"{nameof(code)} is null.");
+                throw new ArgumentNullException(nameof(code), $"{nameof(code)} is null.");
             }
 
             if (code.Length != 4)
             {
-                throw new Exception($"{nameof(code)} has {code.Length} chars.");
+                throw new ArgumentException($"{nameof(code)} has {code.Length} chars.", nameof(code));
             }
 
             if (day <= 0 || day >= 100)
             {
-                throw new ApplicationException($"{nameof(day)} should be greater than zero and less than 100");
+                throw new ArgumentOutOfRangeException(nameof(day), $"{nameof(day)} should be greater than zero and less than 100");
             }
 
             return code + day.ToString(CultureInfo.InvariantCulture);
@@ -49,22 +49,22 @@ namespace ExceptionGuardClauses
         {
             if (string.IsNullOrEmpty(hello))
             {
-                throw new NullReferenceException($"{nameof(hello)} is null.");
+                throw new ArgumentNullException(nameof(hello), $"{nameof(hello)} is null.");
             }
 
             if (addressee is null)
             {
-                throw new NullReferenceException($"{nameof(addressee)} is null.");
+                throw new ArgumentNullException(nameof(addressee), $"{nameof(addressee)} is null.");
             }
 
             if (addressee.Length == 0)
             {
-                throw new ApplicationException($"array is empty");
+                throw new ArgumentException($"array is empty", nameof(addressee));
             }
 
             if (index < 0 || index >= addressee.Length)
             {
-                throw new IndexOutOfRangeException($"{index} is out of range");
+                throw new ArgumentOutOfRangeException(nameof(index), $"{index} is out of range");
             }
 
             return $"{hello}, {addressee[index]}!";
@@ -74,34 +74,34 @@ namespace ExceptionGuardClauses
         {
             if (indexArray is null)
             {
-                throw new NullReferenceException($"{nameof(indexArray)} is null");
+                throw new ArgumentNullException(nameof(indexArray), $"{nameof(indexArray)} is null.");
             }
 
             if (indexArray.Length == 0)
             {
-                throw new InvalidProgramException($"{nameof(indexArray)} is empty.");
+                throw new ArgumentException($"{nameof(indexArray)} is empty.", nameof(indexArray));
             }
 
             if (valueArray is null)
             {
-                throw new NullReferenceException($"{nameof(valueArray)} is null");
+                throw new ArgumentNullException(nameof(valueArray), $"{nameof(valueArray)} is null");
             }
 
             if (valueArray.Length == 0)
             {
-                throw new InvalidProgramException($"{nameof(valueArray)} is empty.");
+                throw new ArgumentException($"{nameof(valueArray)} is empty.", nameof(valueArray));
             }
 
             if (indexArrayPosition < 0 || indexArrayPosition >= indexArray.Length)
             {
-                throw new IndexOutOfRangeException($"{nameof(indexArrayPosition)} is out of range.");
+                throw new ArgumentOutOfRangeException(nameof(indexArrayPosition), $"{nameof(indexArrayPosition)} is out of range.");
             }
 
             int position = indexArray[indexArrayPosition];
 
             if (position < 0 || position >= valueArray.Length)
             {
-                throw new AccessViolationException("position is out of range.");
+                 return valueArray[position];
             }
 
             return valueArray[position];
